@@ -14,7 +14,7 @@
         {
             width: 200px;
             height: 300px;
-            border: 1px solid black;
+            
             border-radius: 10px;
             float: left;
             margin: 10px;
@@ -26,6 +26,10 @@
             color: white;
             font-size: 50px;
             text-align: center;
+            transition:all 0.5s ;
+            perspective: 800px;
+            perspective-origin: 50% 100px;
+            transform:rotateY(180deg);
 
         }
         .back
@@ -50,6 +54,7 @@
         var level = parseInt(prompt('select level \n 1.Easy \n 2.medium \n 3.Hard \n 4.Demon'))
         var arrSample = ['&#x263a;','&#x265b;','&#x2791;','&#x2764;','&#x2708;','&#x25d1;','&#x2730;','&#x2709;','&#x263c;','&#x2295;','&#x2211;','&#x25b3;','&#x265a;','&#x2601;','&#x221e;','&#x2744;','&#x2640;','&#x2642;','&#x266a;','&#x266b;','&#x2297;','&#x2205;','&#x2658;'];
         var time
+        var score = 0
 
         switch (level) {
             case 1:
@@ -98,7 +103,7 @@
         var activatedCardIndex = []
         var matchedCards = []
         $(document).ready(()=>{
-            for(k=0;k<arrSample.length;k++)
+            for(k=0;k < arrSample.length;k++)
             {
                 $('#Cards').append(`<div id='card-id-${arrSample[k]}' class='cardIndex-${[k]} card-${arrSample[k]} cardDefaults back'>
                     ${arrSample[k]}
@@ -132,7 +137,9 @@
                     if(activatedCards.length == 2)
                     {
                         if(activatedCards[0] == activatedCards[1])
-                        {
+                        {   
+                            score++
+                            $('#Score').html(score)
                             $(`.${activatedCards[0]}`).addClass('matched').removeClass('front back')
                             $(`.${activatedCards[1]}`).addClass('matched').removeClass('front back')
                             matchedCards.push(activatedCardIndex[0])
@@ -176,10 +183,12 @@
 <body>
  <div class="container">
      <!--  inspect krega bsdk --> 
-     <div ><h2>Moves:<span id="count">0</span></h2> </div>
+     <div style="text-align: center;"><h2>Moves:<span id="count">0</span></h2> </div>
      <!--  inspect krega bsdk --> 
-     <div> Time:<span id="time"></span></div>
-     <!--  inspect krega bsdk --> 
+     <div style="text-align: center;"> Time:<span id="time"></span></div>
+     <!--  inspect krega bsdk -->
+     <div style="text-align: center;"> Score:<span id="Score">0</span></div>
+     <br> 
      <div id="Cards"></div>
  
      
