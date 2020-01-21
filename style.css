@@ -1,0 +1,37 @@
+.cardDefaults
+{
+    width: 200px;
+    height: 300px;
+    
+    border-radius: 10px;
+    float: left;
+    margin: 10px;
+    font-size:0px;
+}
+.front
+{
+    background-color: black;
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    transition:all 0.5s ;
+    perspective: 800px;
+    perspective-origin: 50% 100px;
+    transform:rotateY(180deg);
+
+}
+.back
+{
+    background-color: gray;
+    color: gray;
+    font-size:0px;
+    
+
+}
+.matched
+{
+    background-color: green;
+    color: white;
+    font-size: 50px;
+    text-align: center;
+}
