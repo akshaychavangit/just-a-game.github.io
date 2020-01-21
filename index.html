@@ -9,175 +9,10 @@
     
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .cardDefaults
-        {
-            width: 200px;
-            height: 300px;
-            
-            border-radius: 10px;
-            float: left;
-            margin: 10px;
-            font-size:0px;
-        }
-        .front
-        {
-            background-color: black;
-            color: white;
-            font-size: 50px;
-            text-align: center;
-            transition:all 0.5s ;
-            perspective: 800px;
-            perspective-origin: 50% 100px;
-            transform:rotateY(180deg);
-
-        }
-        .back
-        {
-            background-color: gray;
-            color: gray;
-            font-size:0px;
-            
-
-        }
-        .matched
-        {
-            background-color: green;
-            color: white;
-            font-size: 50px;
-            text-align: center;
-        }
-
-    </style>
-
-    <script>
-        var level = parseInt(prompt('select level \n 1.Easy \n 2.medium \n 3.Hard \n 4.Demon'))
-        var arrSample = ['&#x263a;','&#x265b;','&#x2791;','&#x2764;','&#x2708;','&#x25d1;','&#x2730;','&#x2709;','&#x263c;','&#x2295;','&#x2211;','&#x25b3;','&#x265a;','&#x2601;','&#x221e;','&#x2744;','&#x2640;','&#x2642;','&#x266a;','&#x266b;','&#x2297;','&#x2205;','&#x2658;'];
-        var time
-        var score = 0
-
-        switch (level) {
-            case 1:
-                arrSample = arrSample.slice(0,5)
-                arrSample = [ ...arrSample , ...arrSample ]
-                time = 20
-              break;
-            case 2:
-                arrSample = arrSample.slice(0,7)
-                arrSample = [ ...arrSample , ...arrSample ]
-                time = 30
-              break;
-            case 3:
-                arrSample = arrSample.slice(0,10)
-                arrSample = [ ...arrSample , ...arrSample ]
-                time = 40
-              break;
-            case 4:
-                arrSample = arrSample
-                time = 60
-              break;
-              default:
-                alert("Invalid")
-              break;
-        }
-        
-          
-        var moves  = 0
-
-        shuffle(arrSample)
-        function shuffle(arr) {
-            var i,
-                j,
-                temp;
-            for (i = arr.length - 1; i > 0; i--) {
-                j = Math.floor(Math.random() * (i + 1));
-                temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-            return arr;    
-        };
-        
-        var activatedCards = []
-        
-        var activatedCardIndex = []
-        var matchedCards = []
-        $(document).ready(()=>{
-            for(k=0;k < arrSample.length;k++)
-            {
-                $('#Cards').append(`<div id='card-id-${arrSample[k]}' class='cardIndex-${[k]} card-${arrSample[k]} cardDefaults back'>
-                    ${arrSample[k]}
-                </div>`)
-            }
-            setInterval(()=>{
-                time--
-                $('#time').html(time)
-                if(time==0)
-                {
-                    alert("THE END")
-                    window.location.reload()
-                }
-            },1000)
-
-            $('#Cards').click((e)=>{
-                moves ++
-                $('#count').html(moves)
-                //cardIndex
-                var clickedDiv = e.target.classList[0]
-                
-                activatedCardIndex.push(clickedDiv)
-                if(activatedCardIndex.length == 1)
-                {
-                    $(`.${clickedDiv}`).removeClass('back').addClass('front')
-                }
-                if(activatedCardIndex[0] !== activatedCardIndex[1])
-                {
-                    activatedCards.push(e.target.classList[1])
-                    $(`.${clickedDiv}`).removeClass('back').addClass('front')
-                    if(activatedCards.length == 2)
-                    {
-                        if(activatedCards[0] == activatedCards[1])
-                        {   
-                            score++
-                            $('#Score').html(score)
-                            $(`.${activatedCards[0]}`).addClass('matched').removeClass('front back')
-                            $(`.${activatedCards[1]}`).addClass('matched').removeClass('front back')
-                            matchedCards.push(activatedCardIndex[0])
-                            matchedCards.push(activatedCardIndex[1])
-                            activatedCards.length = 0
-                            activatedCardIndex.length = 0
-                        }
-                        else
-                        {
-                            $(`.${activatedCards[0]}`).removeClass('front').addClass('back')
-                            activatedCards.shift()
-                            activatedCardIndex.shift()
-                        }
-                    }
-
-                }
-                else
-                {
-                    activatedCardIndex.shift()
-
-                }
-                
-                
-                console.log(activatedCards,"avtiveCard")
-                console.log(activatedCardIndex,"Index")
-                console.log(matchedCards,"machedCards")
-                if(arrSample.length == matchedCards.length)
-                {
-                    alert(`Winner !!!! \n Moves:${moves}`)
-                    window.location.reload()
-                }
-
-
-            })
-            
-        })
-
-    </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sheetrock/1.1.4/dist/sheetrock.min.js"></script>
+    <script src="./logic.js"></script>
+  <link rel="stylesheet" href="./style.css">
+  
 </head>
 
 <body>
@@ -190,6 +25,8 @@
      <div style="text-align: center;"> Score:<span id="Score">0</span></div>
      <br> 
      <div id="Cards"></div>
+
+     
  
      
  </div>   
