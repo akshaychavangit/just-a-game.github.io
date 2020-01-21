@@ -50,7 +50,8 @@ function play()
                 scoreboard = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQk0B_jDS6igwRIpcbc9t0BJzlHHEwX3QwfP8hHLd04pj5-I3X82_uNz9weVdjCNLUl36YEUZO7__y6/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false'
             break;
             default:
-            alert("Invalid")
+            alert("Invalid") 
+             windows.location.reload()
             break;
             }
 
