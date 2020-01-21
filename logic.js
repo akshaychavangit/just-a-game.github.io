@@ -13,7 +13,7 @@ $(document).ready(()=>{
 
  switch (level) {
      case 1:
-         arrSample = arrSample.slice(0,1)
+         arrSample = arrSample.slice(0,4)
          arrSample = [ ...arrSample , ...arrSample ]
          time = 20
        break;
@@ -64,12 +64,12 @@ $(document).ready(()=>{
              ${arrSample[k]}
          </div>`)
      }
-     setInterval(()=>{
+     var timer = setInterval(()=>{
          time--
          $('#time').html(time)
          if(time==0)
          {
-             alert("THE END")
+             alert("The End")
              window.location.reload()
          }
      },1000)
@@ -118,13 +118,15 @@ $(document).ready(()=>{
          }
          
          
-         console.log(activatedCards,"avtiveCard")
-         console.log(activatedCardIndex,"Index")
-         console.log(matchedCards,"machedCards")
+        //  console.log(activatedCards,"avtiveCard")
+        //  console.log(activatedCardIndex,"Index")
+        //  console.log(matchedCards,"machedCards")
          if(arrSample.length == matchedCards.length)
          {
              alert(`Winner !!!! \n Moves:${moves}`)
-             data = {name:name,moves:moves,time:time}
+             a = new Date()
+             id = a.getTime()
+             data = {ID:id , Name:name,Moves:moves,Time:time}
              $.ajax({
                          url: "https://script.google.com/macros/s/AKfycbzvEgHcLbVM3_78YpwtDVx_hLuZaIJrlB1JByXi2erMES9LQ_E/exec",
                          type: "GET",
@@ -134,9 +136,12 @@ $(document).ready(()=>{
                          
                      }).done(function(res) {console.log('success',res)})
                              .fail(function(e) {console.log("error",e)});
-             window.location.reload()
+                    $('#Cards').css({'display':'none'})
+                    $('#scoreboard').html('<iframe style="width: 100%;height: 500px;" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDPM58fmQd9UDaqZwxT-0t_-09-b1gJHz2MkXTUd7DykFGuyxmTUyrAsoo3L4H81am6KmXQ9qBXFeA/pubhtml?widget=true&amp;headers=false"></iframe>')
+                    clearInterval(timer)
 
-                     
+
+                   
          }
 
 
